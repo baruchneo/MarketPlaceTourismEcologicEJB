@@ -44,8 +44,6 @@ public class PruebaPersona extends HttpServlet {
             throws ServletException, IOException, NamingException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        
-        miPersonaEjemplo = (PersonaFacade) new InitialContext().lookup("java:module/PersonaFacade");
         List<Persona> personasCreadas = miPersonaEjemplo.findAll();
         try {
             /* TODO output your page here. You may use following sample code. */
