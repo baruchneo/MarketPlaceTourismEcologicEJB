@@ -4,9 +4,17 @@
         <servlet-name>PruebaPersona2</servlet-name>
         <servlet-class>co.edu.uniminuto.MarketPlaceTourismEcologicEJB.servlets.ejemplo.PruebaPersona2</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AccesoUsuarios</servlet-name>
+        <servlet-class>co.edu.uniminuto.MarketPlaceTourismEcologicEJB.actions.login.AccesoUsuarios</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PruebaPersona2</servlet-name>
         <url-pattern>/PruebaPersona2</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccesoUsuarios</servlet-name>
+        <url-pattern>/AccesoUsuarios</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
