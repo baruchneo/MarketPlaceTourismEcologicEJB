@@ -5,9 +5,15 @@
 package co.edu.uniminuto.marketPlaceTourismEcologicEJB.session;
 
 import co.edu.uniminuto.marketPlaceTourismEcologicEJB.entities.Persona;
+import co.edu.uniminuto.marketPlaceTourismEcologicEJB.entities.Persona_;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -25,6 +31,17 @@ public class PersonaFacade extends AbstractFacade<Persona> {
 
     public PersonaFacade() {
         super(Persona.class);
+    }
+    
+    public Persona findByUser(String user)
+    {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery <Persona> cq = cb.createQuery(Persona.class);
+        Root<Persona> persona = cq.from(Persona.class);
+        cq.where(cb.equal(persona.get(Persona_.usuario), user));
+        TypedQuery<Persona> q = em.createQuery(cq);
+        List<Persona> allPets = q.getResultList();
+        return allPets.get(0);
     }
     
 }
