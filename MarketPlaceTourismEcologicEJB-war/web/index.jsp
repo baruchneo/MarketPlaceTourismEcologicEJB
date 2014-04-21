@@ -13,7 +13,7 @@
     </head>
     <body>
         <h1>Hello World!</h1>
-        <form action="PruebaPersona" method="post">
+        <form action="PruebaPersona2" method="post">
             <input name="enviar" type="submit" value="Enviar ..." />
         </form>
     </body>
