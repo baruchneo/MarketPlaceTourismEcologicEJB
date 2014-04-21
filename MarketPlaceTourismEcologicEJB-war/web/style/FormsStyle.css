@@ -1,0 +1,459 @@
+    /**
+ * Uniminuto 
+ * Arquitectura de Software 
+ * Docente: Yamid Ramirez       NRC: 3242
+ * @author Cristian rodriguez   baruchneo@gmail.com         IdGenesis: 000034860
+ * @author Cristian Vargas      cvarga35@uniminuto.edu.co   IdGenesis: 000164598
+ * @author Yohan EspaNa         espanaqwe123@gmail.com      IdGenesis: 000127710
+ * @author Wilson Lombana       sonwil1525@gmail.com        IdGenesis: 000065955
+ * Marzo 2014
+ */
+
+#Admin{
+background: url(../images/SuperAdminTemplate.png) 0 0 no-repeat; 
+width: 841px;
+height: 892px;
+z-index: 2;
+position:relative;
+left: 34px;
+top: 0px;
+
+}
+
+body {
+  background: url(../images/background.jpg) 0 0 repeat; 
+    margin: 36px auto;
+    width: 929px;
+
+}
+
+div.content {
+    clear: left;
+    padding: 1em;
+
+}
+
+ol#toc {
+    height: 2em;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+ol#toc a {
+
+    color:#FFFFFF;
+    display: block;
+    float: left;
+    width: 169px;
+    height: 50px;
+    padding-left: 10px;
+    text-decoration: none;
+}
+
+ol#toc a:hover {
+   border-bottom: medium double ;
+   border-top: medium double ;
+   border-width: 3px;
+   border-color: ffffff; 
+}
+
+ol#toc a:hover span {
+    background-position: 100% -120px;
+}
+
+ol#toc li {
+    float: left;
+    margin: 0 1px 0 0;
+}
+
+ol#toc li.current a {
+   border-bottom: medium double ;
+   border-top: medium double ;
+   border-width: 3px;
+   border-color: ffffff; 
+}
+
+ol#toc li.current span {
+    background-position: 100% -60px;
+}
+
+ol#toc span {
+    background: url(tabs.gif) 100% 0;
+    display: block;
+    line-height: 2em;
+    padding-right: 10px;
+}
+
+
+#grid{
+width: 488px;
+height: 326px;
+z-index: 2;
+position: relative;
+left: 117px;
+top: -136px;
+    
+}
+
+#scroll{
+width: 786px;
+height: 362px;
+overflow-y: scroll;
+position: relative;
+left: -18px;
+top: -15px;
+}
+
+#scroll_preba{
+width: 191px;
+height: 142px;
+overflow: scroll;
+position:relative;
+left: 300px;
+top: 0px;
+}
+
+#grid_Conten{
+width: 751px;
+height: 328px;
+z-index: 2;
+position: relative;
+left: 33px;
+top: -904px;
+}
+
+#gridSuperAdminHome{
+width: 177px;
+height: 56px;
+z-index: 2;
+position:relative;
+left: 68px;
+top: -687px;
+}
+
+#gridSuperAdminProvider{
+width: 177px;
+height: 56px;
+z-index: 2;
+position:relative;
+left: 265px;
+top: -742px;
+}
+
+#gridSuperAdminServices{
+width: 177px;
+height: 56px;
+z-index: 2;
+position:relative;
+left: 464px;
+top: -798px;
+}
+
+#gridSuperAdminMessages{
+width: 177px;
+height: 56px;
+z-index: 2;
+position:relative;
+left: 663px;
+top: -854px;
+}
+
+#gridSuperAdminHistory{
+width: 177px;
+height: 56px;
+z-index: 2;
+position: relative;
+left: 626px;
+top: -429px;
+}
+
+#contact-form { 
+   background-color: #87C489;
+   width: 406px; 
+   padding: 20px; 
+   margin: 13px auto; 
+   border-radius: 15px;   
+   -moz-border-radius: 15px; 
+   -webkit-border-radius: 15px; 
+
+}
+#form_style_Radio { 
+   background-color: #87C489;
+   width: 263px; 
+   padding: 20px; 
+   margin: 13px auto; 
+   border-radius: 15px;   
+   -moz-border-radius: 15px; 
+   -webkit-border-radius: 15px; 
+
+}
+
+#form_style_Radio input { 
+  width: 100px;
+   background: #fff;
+   border: 0;
+   -moz-border-radius: 5px; 
+   -webkit-border-radius: 5px; 
+   border-radius: 5px;
+   margin-bottom: 0px; 
+   padding: 5px; 
+
+}
+
+#form_style_Check { 
+   background-color: #87C489;
+   width: 263px; 
+   padding: 20px; 
+   margin: 13px auto; 
+   border-radius: 15px;   
+   -moz-border-radius: 15px; 
+   -webkit-border-radius: 15px; 
+
+}
+
+#form_style_Check input { 
+  width: 100px;
+   background: #fff;
+   border: 0;
+   -moz-border-radius: 5px; 
+   -webkit-border-radius: 5px; 
+   border-radius: 5px;
+   margin-bottom: 0px; 
+   padding: 5px; 
+
+}
+
+#form_style_Text { 
+   background-color: #87C489;
+   width: 263px; 
+   padding: 20px; 
+   margin: 13px auto; 
+   border-radius: 15px;   
+   -moz-border-radius: 15px; 
+   -webkit-border-radius: 15px; 
+
+}
+
+#form_style_Text input { 
+  width: 100px;
+   background: #fff;
+   border: 0;
+   -moz-border-radius: 5px; 
+   -webkit-border-radius: 5px; 
+   border-radius: 5px;
+   margin-bottom: 0px; 
+   padding: 5px; 
+
+}
+
+#form_style_Lista { 
+   background-color: #87C489;
+   width: 263px; 
+   padding: 20px; 
+   margin: 13px auto; 
+   border-radius: 15px;   
+   -moz-border-radius: 15px; 
+   -webkit-border-radius: 15px; 
+
+}
+
+#form_style_Lista select { 
+  width: 100px;
+   background: #fff;
+   border: 0;
+   -moz-border-radius: 5px; 
+   -webkit-border-radius: 5px; 
+   border-radius: 5px;
+   margin-bottom: 0px; 
+   padding: 5px; 
+
+}
+
+#form_style_TextArea { 
+   background-color: #87C489;
+   width: 263px; 
+   padding: 20px; 
+   margin: 13px auto; 
+   border-radius: 15px;   
+   -moz-border-radius: 15px; 
+   -webkit-border-radius: 15px; 
+
+}
+
+#form_style_TextArea textarea { 
+  width: 100px;
+   background: #fff;
+   border: 0;
+   -moz-border-radius: 5px; 
+   -webkit-border-radius: 5px; 
+   border-radius: 5px;
+   margin-bottom: 0px; 
+   padding: 5px; 
+
+}
+ 
+ #form_style_Date{ 
+   background-color: #87C489;
+   width: 263px; 
+   padding: 20px; 
+   margin: 13px auto; 
+   border-radius: 15px;   
+   -moz-border-radius: 15px; 
+   -webkit-border-radius: 15px; 
+
+}
+
+#form_style_Date input { 
+  width: 100px;
+   background: #fff;
+   border: 0;
+   -moz-border-radius: 5px; 
+   -webkit-border-radius: 5px; 
+   border-radius: 5px;
+   margin-bottom: 0px; 
+   padding: 5px; 
+
+} 
+
+ #form_style_Boton{ 
+   background-color: #87C489;
+   width: 111px; 
+   padding: 20px; 
+   margin: 13px auto; 
+   border-radius: 15px;   
+   -moz-border-radius: 15px; 
+   -webkit-border-radius: 15px; 
+
+}
+    
+ 
+#contact-form input,   
+#contact-form select,   
+#contact-form textarea,   
+#contact-form label { 
+   font-size: 15px; 
+   margin-bottom: 2px;
+   font-family: Arial, san-serif;
+} 
+ 
+#contact-form input,   
+#contact-form select,   
+#contact-form textarea { 
+   width: 383px;
+   background: #fff;
+   border: 0;
+   -moz-border-radius: 5px; 
+   -webkit-border-radius: 5px; 
+   border-radius: 5px;
+   margin-bottom: 25px; 
+   padding: 5px; 
+} 
+ 
+#contact-form input:focus,   
+#contact-form select:focus,   
+#contact-form textarea:focus { 
+   background-color: #E5E6E7;
+} 
+ 
+#contact-form textarea { 
+   height: 150px;   
+} 
+ 
+#contact-form #submit { 
+   width: 383px;   
+   color: #BFD7C1; 
+   border: none; 
+   background-color: #6EA070;
+} 
+ 
+#contact-form #submit:hover { 
+   background-color: #BFD7C1; 
+   color: #6EA070;
+}
+ 
+input:required, textarea:required { 
+   box-shadow: none;
+   -moz-box-shadow: none; 
+   -webkit-box-shadow: none; 
+   -o-box-shadow: none; 
+}
+ 
+#contact-form .required { 
+   font-weight:bold; 
+   color: #E5E6E7;     
+}
+ 
+#failure, #success {
+   color: #6EA070;
+   display:none; 
+}
+
+#login{
+position:relative;
+left: 34px;
+top: 0px;
+
+}
+#login input {
+position: relative;
+left: 238px;
+top: -839px;
+padding: 7px;
+z-index: 4;
+}
+
+#login a{
+position: relative;
+left: 742px;
+top: -879px;
+padding: 5px;
+    z-index:4;
+}
+
+
+#login2{
+position:relative;
+left: 34px;
+top: 0px;
+
+}
+#login2 input {
+position: relative;
+left: 365px;
+top: 182px;
+padding: 7px;
+z-index: 4;
+}
+
+#login2 a{
+position: relative;
+left: 836px;
+top: 142px;
+padding: 5px;
+    z-index:4;
+}
+
+#login2 input { 
+   background: #fff;
+   -moz-border-radius: 5px; 
+   -webkit-border-radius: 5px; 
+   border-radius: 5px;
+} 
+ 
+#login2 input:focus{ 
+   background-color: #E5E6E7;
+} 
+
+#login2 #submit { 
+   width: 83px;
+   height: 39px;   
+   color: #BFD7C1; 
+   border: none; 
+   background-color: #6EA070;
+} 
+
+#login2 #submit:hover {
+background-color: #BFD7C1;
+color: #6EA070;
+}
