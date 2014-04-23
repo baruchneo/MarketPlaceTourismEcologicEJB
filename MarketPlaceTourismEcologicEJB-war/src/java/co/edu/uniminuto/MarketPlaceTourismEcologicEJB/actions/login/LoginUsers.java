@@ -5,7 +5,6 @@
 package co.edu.uniminuto.MarketPlaceTourismEcologicEJB.actions.login;
 
 import co.edu.uniminuto.marketPlaceTourismEcologicEJB.entities.Persona;
-import co.edu.uniminuto.marketPlaceTourismEcologicEJB.session.PersonaFacade;
 import co.edu.uniminuto.marketPlaceTourismEcologicEJB.session.TipoPersonaFacade;
 import javax.ejb.EJB;
 
@@ -23,32 +22,42 @@ class LoginUsers
     
     private String password;
     
-    @EJB
-    private PersonaFacade personaFacade;
+    private Persona persona;
     
     @EJB
     private TipoPersonaFacade tipoPersonaFacade;
+
+    public Persona getPersona() 
+    {
+        return persona;
+    }
+
+    public void setPersona(Persona persona) 
+    {
+        this.persona = persona;
+    }
+    
+    
     
     public int veryfyLogin(String user, String password)
     {
-        int result = -1;
+        int result = 0;
+
         if(user.trim().equals(USER_SUPER_ADMIN) && password.trim().equals(PASSWORD_SUPER_ADMIN))
-        {
-            return 4;
+        { 
+            result = -1;
         }
         else
         {
-            Persona persona = personaFacade.findByUser(user);
             if(persona != null)
             {
                 this.user = persona.getUsuario();
                 this.password = persona.getClave();
                 result = persona.getIdTipoPersona().getIdTipoPersona();
-                
             }
-            
-            return result; 
         }
+
+        return result;
     }
     
     public boolean verifyPassword()

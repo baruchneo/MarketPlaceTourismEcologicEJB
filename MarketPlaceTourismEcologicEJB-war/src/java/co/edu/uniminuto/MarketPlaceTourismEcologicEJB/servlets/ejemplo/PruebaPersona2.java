@@ -8,6 +8,7 @@ import co.edu.uniminuto.marketPlaceTourismEcologicEJB.entities.Persona;
 import co.edu.uniminuto.marketPlaceTourismEcologicEJB.session.PersonaFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -22,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 public class PruebaPersona2 extends HttpServlet {
 
     @EJB
-    public PersonaFacade miPersonaEjemplo;
+    private PersonaFacade miPersonaEjemplo;
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -37,7 +38,9 @@ public class PruebaPersona2 extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        List<Persona> personasCreadas = miPersonaEjemplo.findAll();
+        Persona per = miPersonaEjemplo.findByUser("crodriguez", "12345678");
+        List<Persona> personasCreadas = new ArrayList <Persona>();
+        personasCreadas.add(per);
         try {
             /* TODO output your page here. You may use following sample code. */
             out.println("<html>");
