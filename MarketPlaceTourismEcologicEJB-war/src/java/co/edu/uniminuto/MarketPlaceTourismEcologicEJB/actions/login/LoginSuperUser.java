@@ -12,7 +12,7 @@ class LoginSuperUser
 {
     private static final String USER_SUPER_ADMIN = "admin";
     
-    private static final String PASSWORD_SUPER_ADMIN = "7c222fb2927d828af22f592134e8932480637c0d";
+    private static final String PASSWORD_SUPER_ADMIN = "7c222fb2927d828af22f592134e8932480637c0d";//12345678
     
     public boolean veryfyLoginAdmin(String user, String password)
     {
