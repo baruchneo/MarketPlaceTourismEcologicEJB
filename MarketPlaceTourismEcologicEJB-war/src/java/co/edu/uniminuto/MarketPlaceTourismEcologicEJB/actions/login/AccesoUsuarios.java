@@ -4,10 +4,14 @@
  */
 package co.edu.uniminuto.MarketPlaceTourismEcologicEJB.actions.login;
 
+import co.edu.uniminuto.MarketPlaceTourismEcologicEJB.utils.PasswordUtils;
 import co.edu.uniminuto.marketPlaceTourismEcologicEJB.entities.Persona;
 import co.edu.uniminuto.marketPlaceTourismEcologicEJB.session.PersonaFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,8 +24,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class AccesoUsuarios extends HttpServlet 
 {
-    private LoginUsers users;
-    
+    private LoginSuperUser superUser;
+    private PasswordUtils passwordUtils;
     private String usuario;
     private String clave;
     
@@ -40,45 +44,47 @@ public class AccesoUsuarios extends HttpServlet
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        Persona persona = personaFacade.findByUser(usuario, clave);
         try {
-            if(persona != null)
+            superUser = new LoginSuperUser();
+            if(superUser.veryfyLoginAdmin(usuario, clave))
             {
-                users = new LoginUsers();
-                users.setPersona(persona);
-                int result = users.veryfyLogin(usuario, clave);
-                if(result == 1)
-                {
-                    //Adminisradores
-                    response.sendRedirect("adminHome.jsp");
-                }
-                if(result == 2)
-                {
-                    //Proveedores
-                    response.sendRedirect("proveedorHome.jsp");
-                }
-                if(result == 3)
-                {
-                    // clientes
-                    response.sendRedirect("clientHome.jsp");
-                }
-                if(result == -1)
-                {
-                    response.sendRedirect("superAdminHome.jsp");
-                }
+                response.sendRedirect("superAdminHome.jsp");
             }
             else
             {
-                String msg = "";
-                msg = "El usuario no se encuentra logueado, si es un cliente";
-                msg += " llene los datos de nuevo cliente, de lo contrario solicite";
-                msg += " su usuario con el administrador";
-                out.println("<html><body><script type=\"text/javascript\">");  
-                out.println("alert(" + msg + ");");  
-                out.println("</script></body></html>");
-                //response.sendRedirect("superAdminHome.jsp?error=1");//pagina para crear un cliente nuevo
+                int result = 0;
+                Persona persona = personaFacade.findByUser(usuario, clave);
+                if(persona != null)
+                {
+                    result = persona.getIdTipoPersona().getIdTipoPersona();
+                    if(result == 1)
+                    {
+                        //Adminisradores
+                        response.sendRedirect("adminHome.jsp");
+                    }
+                    if(result == 2)
+                    {
+                        //Proveedores
+                        response.sendRedirect("proveedorHome.jsp");
+                    }
+                    if(result == 3)
+                    {
+                        // clientes
+                        response.sendRedirect("clientHome.jsp");
+                    }
+                }
+                else
+                {
+                    String msg = "";
+                    msg = "El usuario no se encuentra logueado, si es un cliente";
+                    msg += " llene los datos de nuevo cliente, de lo contrario solicite";
+                    msg += " su usuario con el administrador";
+                    out.println("<html><body><script type=\"text/javascript\">");  
+                    out.println("alert(" + msg + ");");  
+                    out.println("</script></body></html>");
+                    //response.sendRedirect("superAdminHome.jsp?error=1");//pagina para crear un cliente nuevo
+                }
             }
-            
         }
         finally 
         {            
@@ -114,8 +120,17 @@ public class AccesoUsuarios extends HttpServlet
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException 
     {
+        passwordUtils = new PasswordUtils();
+        String claveTemp = "";
+        claveTemp = request.getParameter("password");
         this.usuario = request.getParameter("usuario");
-        this.clave = request.getParameter("password");
+        try {
+            this.clave = passwordUtils.hashPassword(claveTemp);
+        } 
+        catch (NoSuchAlgorithmException ex) 
+        {
+            Logger.getLogger(AccesoUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
         processRequest(request, response);
     }
 
