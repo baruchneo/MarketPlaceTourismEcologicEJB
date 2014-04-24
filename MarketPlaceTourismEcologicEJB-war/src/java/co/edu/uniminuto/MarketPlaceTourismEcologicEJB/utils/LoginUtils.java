@@ -14,8 +14,12 @@ package co.edu.uniminuto.MarketPlaceTourismEcologicEJB.utils;
  */
 public class LoginUtils 
 {
-    public String crearUsuario(String nombre, String Apellido)
+    public String crearUsuario(String nombre, String apellido) throws NullPointerException
     {
-        return null;
+        String userResult = "";
+        String tempName = nombre.substring(0, nombre.indexOf(" ")-1);
+        String tempLastName = apellido.substring(0, apellido.indexOf(" ")-1);
+        userResult = tempName + tempLastName;
+        return userResult;
     }
 }
