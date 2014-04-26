@@ -17,6 +17,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="style/ClientStyle.css">
+        <script src="javascript/ValidateLogin.js" type="text/javascript"></script>
         <title>Marketplace Turismo Ecológico</title>
     </head>
     <body>
@@ -24,8 +25,8 @@
             <form method="post" action="AccesoUsuarios" > 
                 <input type="text" id="user" name="usuario" value="" placeholder="Usuario" size="11" style="margin-right: 56px;" />   
                 <input type="password" id="pass" name="password" value="" placeholder="Contraseña" size="11" /> 
-                <input type="submit" value="Ingresar" id="submit" />
-                <input type="button" value="Registrar" id="submit" onClick="window.location.href='registrarUser.jsp'"/>
+                <input type="submit" value="Ingresar" id="loginButton" />
+                <input type="button" value="Registrar" id="registerButton" onClick="window.location.href='createNewClient.jsp'"/>
                 <br> <a href="">Olvide mi<br> Contraseña</a>
             </form > 
         </div>  

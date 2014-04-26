@@ -5,6 +5,9 @@
 
 package co.edu.uniminuto.MarketPlaceTourismEcologicEJB.utils;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * @author Cristian rodriguez    baruchneo@gmail.com
  * @author Cristian Vargas      cvarga35@uniminuto.edu.co
@@ -16,10 +19,22 @@ public class LoginUtils
 {
     public String crearUsuario(String nombre, String apellido) throws NullPointerException
     {
-        String userResult = "";
+        String userResult;
         String tempName = nombre.substring(0, nombre.indexOf(" ")-1);
         String tempLastName = apellido.substring(0, apellido.indexOf(" ")-1);
         userResult = tempName + tempLastName;
         return userResult;
+    }
+    
+    public String updateUser(String usuarioRepetido, String usuario)
+    {
+        int posicion;
+        String nuevoUsuarioResult;
+        Pattern patron = Pattern.compile(usuario+"(\\d+)$");
+        Matcher matcher = patron.matcher(usuarioRepetido);
+        posicion = Integer.parseInt(matcher.group(1));
+        posicion++;
+        nuevoUsuarioResult = usuario + posicion;
+        return nuevoUsuarioResult;
     }
 }

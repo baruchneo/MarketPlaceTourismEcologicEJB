@@ -13,7 +13,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 /**
@@ -34,23 +33,30 @@ public class PersonaFacade extends AbstractFacade<Persona> {
         super(Persona.class);
     }
     
-    public Persona findByUser(String user, String password)
+    public Persona findByUserPassword(String user, String password)
     {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery <Persona> cq = cb.createQuery(Persona.class);
         Root<Persona> persona = cq.from(Persona.class);
-        cq.where(cb.equal(persona.get(Persona_.usuario), user));
-        //cq.where(cb.equal(persona.get(Persona_.usuario), user)
-        //    .and(cb.equal(persona.get(Persona_.clave), password)));
+        cq.where(
+            cb.and(
+                cb.equal(persona.get(Persona_.usuario), user),
+                cb.equal(persona.get(Persona_.clave), password)
+            )
+        );
         TypedQuery<Persona> q = em.createQuery(cq);
-        if(q.getResultList().isEmpty())
-        {
-            return null;
-        }
-        else
-        {
-            List<Persona> allPets = q.getResultList();
-            return allPets.get(0);
-        }
+        
+        return (q.getSingleResult() == null) ? null : q.getSingleResult();
+    }
+    public Persona findByUser(String user)
+    {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery <Persona> cq = cb.createQuery(Persona.class);
+        Root<Persona> persona = cq.from(Persona.class);
+        cq.where(cb.like(persona.get(Persona_.usuario), user + "*"));
+        cq.orderBy(cb.desc(persona.get(Persona_.usuario)));
+        TypedQuery<Persona> q = em.createQuery(cq);
+        List <Persona> allPersonas = q.getResultList();        
+        return (q.getSingleResult() == null) ? null : allPersonas.get(0);
     }
 }

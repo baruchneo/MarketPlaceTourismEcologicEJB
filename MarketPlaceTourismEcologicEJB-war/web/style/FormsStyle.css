@@ -190,7 +190,7 @@ top: -429px;
 }
 
 #form_style_Radio input { 
-  width: 100px;
+  width: 200px;
    background: #fff;
    border: 0;
    -moz-border-radius: 5px; 
@@ -213,7 +213,7 @@ top: -429px;
 }
 
 #form_style_Check input { 
-  width: 100px;
+  width: 200px;
    background: #fff;
    border: 0;
    -moz-border-radius: 5px; 
@@ -236,7 +236,7 @@ top: -429px;
 }
 
 #form_style_Text input { 
-  width: 100px;
+  width: 200px;
    background: #fff;
    border: 0;
    -moz-border-radius: 5px; 
@@ -259,7 +259,7 @@ top: -429px;
 }
 
 #form_style_Lista select { 
-  width: 100px;
+  width: 200px;
    background: #fff;
    border: 0;
    -moz-border-radius: 5px; 
@@ -282,7 +282,7 @@ top: -429px;
 }
 
 #form_style_TextArea textarea { 
-  width: 100px;
+  width: 200px;
    background: #fff;
    border: 0;
    -moz-border-radius: 5px; 
@@ -371,7 +371,7 @@ top: -429px;
    background-color: #BFD7C1; 
    color: #6EA070;
 }
- 
+
 input:required, textarea:required { 
    box-shadow: none;
    -moz-box-shadow: none; 

@@ -38,7 +38,7 @@ public class PruebaPersona2 extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        Persona per = miPersonaEjemplo.findByUser("crodriguez", "12345678");
+        Persona per = miPersonaEjemplo.findByUserPassword("crodriguez", "12345678");
         List<Persona> personasCreadas = new ArrayList <Persona>();
         personasCreadas.add(per);
         try {

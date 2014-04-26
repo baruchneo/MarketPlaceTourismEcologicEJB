@@ -45,6 +45,7 @@ public class AccesoUsuarios extends HttpServlet
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
+            Persona persona = null;
             superUser = new LoginSuperUser();
             if(superUser.veryfyLoginAdmin(usuario, clave))
             {
@@ -53,7 +54,7 @@ public class AccesoUsuarios extends HttpServlet
             else
             {
                 int result = 0;
-                Persona persona = personaFacade.findByUser(usuario, clave);
+                persona = personaFacade.findByUserPassword(usuario, clave);
                 if(persona != null)
                 {
                     result = persona.getIdTipoPersona().getIdTipoPersona();
@@ -75,14 +76,23 @@ public class AccesoUsuarios extends HttpServlet
                 }
                 else
                 {
-                    String msg = "";
-                    msg = "El usuario no se encuentra logueado, si es un cliente";
-                    msg += " llene los datos de nuevo cliente, de lo contrario solicite";
-                    msg += " su usuario con el administrador";
-                    out.println("<html><body><script type=\"text/javascript\">");  
-                    out.println("alert(" + msg + ");");  
-                    out.println("</script></body></html>");
-                    //response.sendRedirect("superAdminHome.jsp?error=1");//pagina para crear un cliente nuevo
+                    persona = personaFacade.findByUser(usuario);
+                    if(persona != null)
+                    {
+                        //clave errada
+                        response.sendRedirect("clientHome.jsp?error=1");//pagina para crear un cliente nuevo
+                    }
+                    else
+                    {
+                        String msg = "";
+                        msg = "El usuario no se encuentra logueado, si es un cliente";
+                        msg += " llene los datos de nuevo cliente, de lo contrario solicite";
+                        msg += " su usuario con el administrador";
+                        out.println("<html><body><script type=\"text/javascript\">");  
+                        out.println("alert(" + msg + ");");  
+                        out.println("</script></body></html>");
+                        response.sendRedirect("createNewClient.jsp?error=1");//pagina para crear un cliente nuevo
+                    }
                 }
             }
         }
@@ -120,10 +130,12 @@ public class AccesoUsuarios extends HttpServlet
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException 
     {
-        passwordUtils = new PasswordUtils();
         String claveTemp = "";
+        String usaurioTemp = "";
         claveTemp = request.getParameter("password");
-        this.usuario = request.getParameter("usuario");
+        usaurioTemp = request.getParameter("usuario");
+        passwordUtils = new PasswordUtils();
+        this.usuario = usaurioTemp;
         try {
             this.clave = passwordUtils.hashPassword(claveTemp);
         } 
