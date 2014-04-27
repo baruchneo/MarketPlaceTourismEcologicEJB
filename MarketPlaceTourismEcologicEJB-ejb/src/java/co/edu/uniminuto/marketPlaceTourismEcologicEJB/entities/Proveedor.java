@@ -38,7 +38,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Proveedor.findByTelefono", query = "SELECT p FROM Proveedor p WHERE p.telefono = :telefono"),
     @NamedQuery(name = "Proveedor.findByPaginaWeb", query = "SELECT p FROM Proveedor p WHERE p.paginaWeb = :paginaWeb"),
     @NamedQuery(name = "Proveedor.findByEmail", query = "SELECT p FROM Proveedor p WHERE p.email = :email"),
-    @NamedQuery(name = "Proveedor.findByConfirmarProveedor", query = "SELECT p FROM Proveedor p WHERE p.confirmarProveedor = :confirmarProveedor")})
+    @NamedQuery(name = "Proveedor.findByConfirmarProveedor", query = "SELECT p FROM Proveedor p WHERE p.confirmarProveedor = :confirmarProveedor"),
+    @NamedQuery(name = "Proveedor.findByLike", query = "SELECT p FROM Proveedor p WHERE (p.codigo LIKE :codigo OR p.razonSocial LIKE :razonSocial OR p.telefono LIKE :telefono) AND p.confirmarProveedor = 1")})
 public class Proveedor implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

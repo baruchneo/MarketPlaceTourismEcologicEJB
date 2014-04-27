@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author cristian
  */
 @Entity
-@Table(name = "paquete_turistico")
+@Table(name = "paquete_turistico", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "PaqueteTuristico.findAll", query = "SELECT p FROM PaqueteTuristico p"),
@@ -43,7 +43,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "PaqueteTuristico.findByCosto", query = "SELECT p FROM PaqueteTuristico p WHERE p.costo = :costo"),
     @NamedQuery(name = "PaqueteTuristico.findByOferta", query = "SELECT p FROM PaqueteTuristico p WHERE p.oferta = :oferta"),
     @NamedQuery(name = "PaqueteTuristico.findByEstado", query = "SELECT p FROM PaqueteTuristico p WHERE p.estado = :estado"),
-    @NamedQuery(name = "PaqueteTuristico.findByPublicado", query = "SELECT p FROM PaqueteTuristico p WHERE p.publicado = :publicado")})
+    @NamedQuery(name = "PaqueteTuristico.findByPublicado", query = "SELECT p FROM PaqueteTuristico p WHERE p.publicado = :publicado"),
+    @NamedQuery(name = "PaqueteTuristico.findByLike", query = "SELECT p FROM PaqueteTuristico p WHERE p.codigo Like :codigo AND p.estado = 'Activo' AND p.publicado = 1")})
 public class PaqueteTuristico implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

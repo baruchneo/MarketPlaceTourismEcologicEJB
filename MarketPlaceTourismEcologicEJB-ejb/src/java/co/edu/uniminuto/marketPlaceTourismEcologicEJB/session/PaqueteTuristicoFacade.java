@@ -5,9 +5,11 @@
 package co.edu.uniminuto.marketPlaceTourismEcologicEJB.session;
 
 import co.edu.uniminuto.marketPlaceTourismEcologicEJB.entities.PaqueteTuristico;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -25,6 +27,20 @@ public class PaqueteTuristicoFacade extends AbstractFacade<PaqueteTuristico> {
 
     public PaqueteTuristicoFacade() {
         super(PaqueteTuristico.class);
+    }
+    public List<PaqueteTuristico> getPaqueteBuscar(String buscar)
+    {
+        if(!buscar.trim().equals(""))
+        {
+            //String textQuery = "SELECT t FROM paquete_turistico t WHERE t.nombre LIKE '%:busquedaResult%' and t.estado = 'disponible' and publicado = 1";
+            Query query = this.getEntityManager().createNamedQuery("PaqueteTuristico.findByLikeCodigo")
+                    .setParameter("codigo", "%" + buscar + "%");
+            return query.getResultList();
+        }
+        else
+        {
+            return null;
+        }
     }
     
 }
