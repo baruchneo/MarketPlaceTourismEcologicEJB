@@ -33,7 +33,7 @@ public class PaqueteTuristicoFacade extends AbstractFacade<PaqueteTuristico> {
         if(!buscar.trim().equals(""))
         {
             //String textQuery = "SELECT t FROM paquete_turistico t WHERE t.nombre LIKE '%:busquedaResult%' and t.estado = 'disponible' and publicado = 1";
-            Query query = this.getEntityManager().createNamedQuery("PaqueteTuristico.findByLikeCodigo")
+            Query query = this.getEntityManager().createNamedQuery("PaqueteTuristico.findByLike")
                     .setParameter("codigo", "%" + buscar + "%");
             return query.getResultList();
         }
