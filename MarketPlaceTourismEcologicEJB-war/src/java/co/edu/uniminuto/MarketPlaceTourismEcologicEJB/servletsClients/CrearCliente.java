@@ -163,6 +163,8 @@ public class CrearCliente extends HttpServlet
         persona.setEstado(estado);
         persona.setIdTipoPersona(tipoPersonaObject);
         
+        //personaFacade.create(persona);
+        
         
         //llenar objeto registro
         TipoRegistro tipoRegistro = tipoRegistroFacade.find(1);

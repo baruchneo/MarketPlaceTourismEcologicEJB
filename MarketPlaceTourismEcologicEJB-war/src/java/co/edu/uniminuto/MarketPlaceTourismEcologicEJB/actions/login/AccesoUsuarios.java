@@ -17,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -28,6 +29,7 @@ public class AccesoUsuarios extends HttpServlet
     private PasswordUtils passwordUtils;
     private String usuario;
     private String clave;
+    private HttpSession session;
     
     @EJB
     private PersonaFacade personaFacade;
@@ -47,9 +49,14 @@ public class AccesoUsuarios extends HttpServlet
         try {
             Persona persona = null;
             superUser = new LoginSuperUser();
+            
+            session = request.getSession();
+            
             if(superUser.veryfyLoginAdmin(usuario, clave))
             {
-                response.sendRedirect("superAdminHome.jsp");
+                session.setAttribute("usuario", usuario);
+                session.setAttribute("nombre", "Superusuario");
+                request.getRequestDispatcher("superAdminHome.jsp").forward(request, response);
             }
             else
             {
@@ -61,17 +68,17 @@ public class AccesoUsuarios extends HttpServlet
                     if(result == 1)
                     {
                         //Adminisradores
-                        response.sendRedirect("adminHome.jsp");
+                        request.getRequestDispatcher("adminHome.jsp").forward(request, response);
                     }
                     if(result == 2)
                     {
                         //Proveedores
-                        response.sendRedirect("proveedorHome.jsp");
+                        request.getRequestDispatcher("proveedorHome.jsp").forward(request, response);
                     }
                     if(result == 3)
                     {
                         // clientes
-                        response.sendRedirect("clientHome.jsp");
+                        request.getRequestDispatcher("clientHome.jsp").forward(request, response);
                     }
                 }
                 else
@@ -80,7 +87,9 @@ public class AccesoUsuarios extends HttpServlet
                     if(persona != null)
                     {
                         //clave errada
-                        response.sendRedirect("clientHome.jsp?error=1");//pagina para crear un cliente nuevo
+                        request.setAttribute("error", 1);
+                        request.getRequestDispatcher("clientHome.jsp?error=1").forward(request, response);
+                        //pagina para crear un cliente nuevo
                     }
                     else
                     {

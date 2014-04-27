@@ -21,7 +21,7 @@
         <title>Marketplace Turismo Ecológico</title>
     </head>
     <body>
-        <div id="login2" >  
+        <div id="login2" >{error}
             <form method="post" action="AccesoUsuarios" > 
                 <input type="text" id="user" name="usuario" value="" placeholder="Usuario" size="11" style="margin-right: 56px;" />   
                 <input type="password" id="pass" name="password" value="" placeholder="Contraseña" size="11" /> 
