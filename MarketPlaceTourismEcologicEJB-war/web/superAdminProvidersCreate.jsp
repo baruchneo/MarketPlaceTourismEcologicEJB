@@ -52,7 +52,7 @@
                         <p id="failure">Oops... Algo anduvo mal.</p> 
                         <p id="success">Gracias, tu mensaje ha sido enviado correctamente.</p>
                         <label>Por favor llene los campos solicitados</label>
-                        <form method="post" action="CrearCliente" >
+                        <form method="post" action="CrearProveedorSuperAdmin" >
                             <label>Nombres: <span class="required">*</span></label> 
                             <input type="text" id="name" name="nombres" value="" placeholder="Escriba sus nombres" required="required" autofocus="autofocus" />
                             <br>
@@ -86,7 +86,7 @@
                             <label>Email: <span class="required">*</span></label> 
                             <input type="email" id="email" name="email" value="" placeholder="suemail@email.com" required="required" />
                             <br>
-                            <input type="hidden" id="tipeUser" name="tipoPersona" value="3">
+                            <input type="hidden" id="tipeUser" name="tipoPersona" value="2">
                             <input type="submit" value="Enviar" id="submit" />
                         </form>
                     </div>

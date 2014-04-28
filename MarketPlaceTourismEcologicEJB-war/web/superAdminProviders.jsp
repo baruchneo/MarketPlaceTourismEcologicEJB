@@ -10,8 +10,24 @@
  * Marzo 2014
  */
 --%>
-
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="co.edu.uniminuto.marketPlaceTourismEcologicEJB.entities.Proveedor"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%
+String msgSearch = "";
+List<Proveedor> proveedores = new ArrayList <Proveedor> ();
+
+if((List<Proveedor>) request.getAttribute("proveedores") != null)
+{
+    proveedores = (List<Proveedor>) request.getAttribute("proveedores");
+}
+else
+{
+    msgSearch = "No hay coincidencias disponibles por el filtrado de la búsqueda";
+}
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -46,51 +62,37 @@
         </ol>
         <div class="content" id="grid_Conten" style="margin-left: 30px;">
             <div id="scroll">
-                <fieldset>
-                    <legend><h2>Ingreso Usuarios  Proveedores</h2></legend>
-                    <div id="contact-form">
-                        <p id="failure">Oops... Algo anduvo mal.</p> 
-                        <p id="success">Gracias, tu mensaje ha sido enviado correctamente.</p>
-                        <label>Por favor llene los campos solicitados</label>
-                        <form method="post" action="CrearCliente" >
-                            <label>Nombres: <span class="required">*</span></label> 
-                            <input type="text" id="name" name="nombres" value="" placeholder="Escriba sus nombres" required="required" autofocus="autofocus" />
-                            <br>
-                            <label>Apellidos: <span class="required">*</span></label> 
-                            <input type="text" id="lastname" name="apellidos" value="" placeholder="Escriba sus apellidos" required="required" />
-                            <br>
-                            <label>Fecha Nacimiento: <span class="required">*</span></label> 
-                            <input id="date" type="date" name="fechaNacimiento" value="2014-07-13"/>
-                            <br> 
-                            <label>Lista<span class="required">*</span> </label> 
-                            <select id="typeDoc" name="tipoDocumento" style="width: 393px;">
-                                <option value="">Elija Opción</option>
-                                <option value="CC">Cédula Ciudaddanía</option>
-                                <option value="CE">Cédula Extrangería</option> 
-                                <option value="PA">Pasaporte</option>
-                                <option value="OT">Otro Tipo Documento</option> 
-                            </select>
-                            <br>
-                            <label>Número Documento: <span class="required">*</span></label> 
-                            <input type="text" id="document" name="documento" value="" placeholder="Escriba su num. doc." required="required" />
-                            <br>
-                            <label>Dirección: <span class="required">*</span></label> 
-                            <input type="text" id="addres" name="direccion" value="" placeholder="Escriba ladirección de su domicilio." required="required" />
-                            <br>
-                            <label>Número telefónico: <br></label> 
-                            <input type="tel" id="phone" name="telefono" value="" placeholder="Escriba su num. telefonico" />
-                            <br>
-                            <label>Número telefónico móvil: <br></label> 
-                            <input type="tel" id="movilPhone" name="telefonoMovil" value="" placeholder="Escriba su num. celular" />
-                            <br>
-                            <label>Email: <span class="required">*</span></label> 
-                            <input type="email" id="email" name="email" value="" placeholder="suemail@email.com" required="required" />
-                            <br>
-                            <input type="hidden" id="tipeUser" name="tipoPersona" value="3">
-                            <input type="submit" value="Enviar" id="submit" />
-                        </form>
-                    </div>
-                </fieldset>
+                <div id="contact-form" >
+                    <p id="failure">Oops... Algo anduvo mal.</p> 
+                    <p id="success">Gracias, tu mensaje ha sido enviado correctamente.</p> 
+                    <label>Formulario de Busqueda de Proveedores - Paquetes Turisticos</label> 
+                    <form action="ServletCientes" method="post">
+                        <label for="name">Codigo de Proveedor: <span class="required">*</span></label> 
+                        <input type="text" id="name" name="nameProvider" value="" placeholder="Nombre proveedor" autofocus="autofocus" />
+                        <label for="name">Codigo de Paquete: <span class="required">*</span></label> 
+                        <input type="text" id="name" name="namePackage" value="" placeholder="Codido del paquete" autofocus="autofocus" />
+                        <input type="submit" value="Buscar!" id="submit" />
+
+                    </form>
+                </div>
+                        
+                <br>
+                <%if(!proveedores.isEmpty()){%>
+                    <table border="1">
+                        <tr>
+                            <% for(Proveedor proveedor: proveedores){ %>
+                            <td><%= proveedor.getRazonSocial() %></td>
+                            <td><%= proveedor.getCodigo() %></td>
+                            <td><%= proveedor.getTelefono() %></td>
+                            <td><%= proveedor.getDireccion()%></td>
+                            <td><%= proveedor.getPaginaWeb()%></td>
+                            <td><%= proveedor.getEmail()%></td>                               
+                            <% } %>
+                        </tr>
+                    </table>
+                <% } else { %>
+                    <p><%= msgSearch %></p>
+                <% } %>
             </div> 
         </div>
     </body>
