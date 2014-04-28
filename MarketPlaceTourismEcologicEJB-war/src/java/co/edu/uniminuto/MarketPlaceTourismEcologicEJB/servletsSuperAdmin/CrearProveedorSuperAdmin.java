@@ -204,13 +204,15 @@ public class CrearProveedorSuperAdmin extends HttpServlet
         {
             request.setAttribute("persona", persona);
             request.setAttribute("msgError", "");
-            request.getRequestDispatcher("clientHome.jsp").forward(request, response);
+            request.setAttribute("msgError", "Proveedor Creado");
+            request.getRequestDispatcher("superAdminProviders.jsp").forward(request, response);
         }
         else
         {
             request.setAttribute("persona", persona);
             request.setAttribute("msgError", "Error al enviar datos de contacto al nuevo proveedor");
-            request.getRequestDispatcher("clientHome.jsp").forward(request, response);
+            request.setAttribute("msgError", "Proveedor Creado");
+            request.getRequestDispatcher("superAdminProviders.jsp").forward(request, response);
         }
         
         processRequest(request, response);
