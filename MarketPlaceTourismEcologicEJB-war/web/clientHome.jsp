@@ -21,15 +21,15 @@
         <title>Marketplace Turismo Ecológico</title>
     </head>
     <body>
-        <div id="login2" >{error}
-            <form method="post" action="AccesoUsuarios" > 
-                <input type="text" id="user" name="usuario" value="" placeholder="Usuario" size="11" style="margin-right: 56px;" />   
-                <input type="password" id="pass" name="password" value="" placeholder="Contraseña" size="11" /> 
-                <input type="submit" value="Ingresar" id="loginButton" />
-                <input type="button" value="Registrar" id="registerButton" onClick="window.location.href='createNewClient.jsp'"/>
-                <br> <a href="">Olvide mi<br> Contraseña</a>
-            </form > 
-        </div>  
+            <div id="login2" >
+                <form method="post" action="AccesoUsuarios" > 
+                    <input type="text" id="user" name="usuario" value="" placeholder="Usuario" size="11" style="margin-right: 56px;" />   
+                    <input type="password" id="pass" name="password" value="" placeholder="Contraseña" size="11" /> 
+                    <input type="submit" value="Ingresar" id="loginButton" />
+                    <input type="button" value="Registrar" id="registerButton" onClick="window.location.href='createNewClient.jsp'"/>
+                    <br> <a href="">Olvide mi<br> Contraseña</a>
+                </form > 
+            </div>
         <div id="fondo">
             <div>
                 <ol id="toc">
@@ -68,6 +68,7 @@
                         <form action="PersonaServlet" method="post">
                             <input type="submit" name="consultar" value="Consultar Personas">
                         </form>
+                        {}
                     </div>
                 </div> 
             </div>

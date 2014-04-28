@@ -54,22 +54,18 @@ public class PersonaFacade extends AbstractFacade<Persona>
     
     public Persona findByUserPassword(String user, String password)
     {
-        String queryText;
-        queryText = "SELECT p FROM Persona p WHERE p.usuario LIKE '" + user + "'";
-        queryText += " AND p.clave LIKE '" + password + "'";
-        
-        Query query = this.getEntityManager().createQuery(queryText);
+        Query query = this.getEntityManager().createNamedQuery("Persona.findByUserPassword")
+                .setParameter("usuario", user)
+                .setParameter("clave", password);
 
         return (Persona) ((query.getSingleResult() == null) ? null : query.getSingleResult());
     }
     
     public Persona findByUser(String user)
     {
-        String queryText;
-        queryText = "SELECT p FROM Persona p WHERE p.user LIKE '" + user + "%' ORDER BY p.id desc";
-        
-        Query query = this.getEntityManager().createQuery(queryText);
-        query.setMaxResults(1);
+        Query query = this.getEntityManager().createNamedQuery("Persona.findByUser")
+                .setParameter("usuario", user + "%")
+                .setMaxResults(1);
         
         List <Persona> allPersonas = query.getResultList();
         return (allPersonas.isEmpty())? null : allPersonas.get(0);

@@ -20,9 +20,9 @@ public class LoginUtils
     public String crearUsuario(String nombre, String apellido) throws NullPointerException
     {
         String userResult;
-        String tempName = nombre.substring(0, nombre.indexOf(" ")-1);
-        String tempLastName = apellido.substring(0, apellido.indexOf(" ")-1);
-        userResult = tempName + tempLastName;
+        String tempName = nombre.substring(0, nombre.indexOf(" "));
+        String tempLastName = apellido.substring(0, apellido.indexOf(" "));
+        userResult = tempName.toLowerCase() + "." + tempLastName.toLowerCase();
         return userResult;
     }
     

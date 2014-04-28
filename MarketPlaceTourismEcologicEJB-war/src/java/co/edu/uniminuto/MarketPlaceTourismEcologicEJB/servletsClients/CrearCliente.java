@@ -6,6 +6,7 @@ package co.edu.uniminuto.MarketPlaceTourismEcologicEJB.servletsClients;
 
 import co.edu.uniminuto.MarketPlaceTourismEcologicEJB.utils.DateUtils;
 import co.edu.uniminuto.MarketPlaceTourismEcologicEJB.utils.LoginUtils;
+import co.edu.uniminuto.MarketPlaceTourismEcologicEJB.utils.MailUtils;
 import co.edu.uniminuto.MarketPlaceTourismEcologicEJB.utils.PasswordUtils;
 import co.edu.uniminuto.marketPlaceTourismEcologicEJB.entities.Persona;
 import co.edu.uniminuto.marketPlaceTourismEcologicEJB.entities.Registro;
@@ -23,11 +24,13 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -112,6 +115,7 @@ public class CrearCliente extends HttpServlet
         LoginUtils loginUtils = new LoginUtils();
         PasswordUtils passwordUtils = new PasswordUtils();
         DateUtils dateUtils = new DateUtils();
+        HttpSession httpSession;
         Date fechaNacimiento = new Date();
         String clave = "";
         persona = new Persona();
@@ -128,10 +132,10 @@ public class CrearCliente extends HttpServlet
         String tipoDocumento = request.getParameter("tipoDocumento");
         String documento = request.getParameter("documento");
         String direccion = request.getParameter("direccion");
-        String telefono = request.getParameter("telefono");
-        String telefonoMovil = request.getParameter("telefonoMovil");
+        String telefono = (request.getParameter("telefono").trim().equals("")? "0000000" : request.getParameter("telefono"));
+        String telefonoMovil = (request.getParameter("telefonoMovil").trim().equals("")? "0000000000" : request.getParameter("telefonoMovil"));
         String email = request.getParameter("email");
-        String estado = "activo";
+        String estado = "Activo";
         Integer tipoPersona = Integer.parseInt(request.getParameter("tipoPersona"));
         String fechaNacimientoString = request.getParameter("fechaNacimiento");
         try {
@@ -162,19 +166,22 @@ public class CrearCliente extends HttpServlet
         persona.setTelefonoMovil(telefonoMovil);
         persona.setEstado(estado);
         persona.setIdTipoPersona(tipoPersonaObject);
+        persona.setIdPersona(0);
         
-        //personaFacade.create(persona);
+        personaFacade.create(persona);
         
+        // obtengo el id de la persona
+        persona = personaFacade.findByUserPassword(usuario, clave);
         
         //llenar objeto registro
         TipoRegistro tipoRegistro = tipoRegistroFacade.find(1);
         String fechaRegistro;
         fechaRegistro = dateUtils.dateToString(new Date(), "yyyy-MM-dd HH:mm:ss");
-        String msg = "Se ha creado un nuevo cliente con esta informacion";
+        String msg = "Se ha creado un nuevo cliente con esta informaci\u00f3n";
         msg += "Nombres[" + nombres + "], Apellidos [" + apellidos + "] ";
-        msg += "usuario [" + usuario + "], email [" + email + "], ";
-        msg += "telefono [" + telefono + "], movil [" + telefonoMovil + "]";
-        registro.setTitulo("Creacion de nuevo Ususario");
+        msg += "Usuario [" + usuario + "], Email [" + email + "], ";
+        msg += "Telefono [" + telefono + "], M\u00f3vil [" + telefonoMovil + "]";
+        registro.setTitulo("Creaci\u00f3n de nuevo Ususario");
         registro.setDescripcion(msg);
         try {
             registro.setFechaRegistro(dateUtils.stringToDate(fechaRegistro, "yyyy-MM-dd HH:mm:ss"));
@@ -182,12 +189,62 @@ public class CrearCliente extends HttpServlet
             Logger.getLogger(CrearCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
         registro.setIdTipoRegistro(tipoRegistro);
+        registro.setIdPersona(persona.getIdPersona());
+        registro.setIdRegistroLog(0);
         //falta id persona pero es cuando se inserte una nueva.
         
+        registroFacade.create(registro);
         
+        if(sendMail(calveDecrypt))
+        {
+            httpSession = request.getSession(true);
+            httpSession.setAttribute("usuario", persona.getUsuario());
+            httpSession.setAttribute("tipoUsuario", persona.getIdTipoPersona().getTipo());
+            httpSession.setAttribute("idPersona", persona.getIdPersona());
+            httpSession.setAttribute("nombres", persona.getNombres());
+            httpSession.setAttribute("apellidos", persona.getAppellidos());
+            request.setAttribute("persona", persona);
+            request.setAttribute("msgError", "");
+            request.getRequestDispatcher("clientHome.jsp").forward(request, response);
+        }
+        else
+        {
+            httpSession = request.getSession(true);
+            httpSession.setAttribute("usuario", persona.getUsuario());
+            httpSession.setAttribute("idPersona", persona.getIdPersona());
+            httpSession.setAttribute("nombres", persona.getNombres());
+            httpSession.setAttribute("apellidos", persona.getAppellidos());
+            request.setAttribute("persona", persona);
+            request.setAttribute("msgError", "Error al enviar datos de contacto del cliente nuevo");
+            request.getRequestDispatcher("clientHome.jsp").forward(request, response);
+        }
+                
         processRequest(request, response);
     }
 
+    public boolean sendMail(String clave)
+    {
+        MailUtils mailUtils  = new MailUtils();
+        String mailSubject = "Creaci\u00f3n y confirmaci\u00f3n cliente";
+        String htmlString = "<body>"
+                + "<div>"
+                + "<h3>Usuario creado con &eacute;xito</h3>"
+                + "<p>Ha sido añadido como cliente de la aplicaci&oacute;n para compra"
+                + " de paquetes Tur&iacute;sticos.</p><br><br>"
+                + "<p>Sudatos de conexi&oacute son:"
+                + "<ul><li> Usuario: <p style=\"font-weight:bold; font-weight:italic;\">" + persona.getUsuario() + "</p></li>"
+                + "<li> Usuario: <p style=\"font-weight:bold; font-weight:italic;\">" + clave + "</p></li></ul>"
+                + "<br><br><p> Para confirmar el usuario por favor haga clic en el link: <br><br>"
+                + "<a href=\"http://localhost:8080/MarketPlaceTourismEcologicEJB-war/confirmarCliente?user=" + persona.getUsuario() + "&clave=" + persona.getClave() + "\" >Clic Aqu&iacute;</a>"
+                + "<br><br><p>Por favor no responsda este correo</p></body>";
+        try {
+            mailUtils.send(persona.getEmail(), mailSubject, htmlString);
+            return true;
+        } catch (MessagingException ex) {
+            Logger.getLogger(CrearCliente.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
     /**
      * Returns a short description of the servlet.
      *
