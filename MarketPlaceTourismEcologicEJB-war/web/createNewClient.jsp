@@ -64,7 +64,6 @@
                     <div id="scroll">
                         <fieldset>
                             <legend><h2>Crear Cleinte nuevo</h2></legend>
-                            <br>
                             <div id="contact-form">
                                 <p id="failure">Oops... Algo anduvo mal.</p> 
                                 <p id="success">Gracias, tu mensaje ha sido enviado correctamente.</p>
@@ -82,7 +81,7 @@
                                     <label>Lista<span class="required">*</span> </label> 
                                     <select id="typeDoc" name="tipoDocumento" style="width: 393px;">
                                         <option value="">Elija Opción</option>
-                                        <option value="CC">Cédula Ciudaddanía</option>
+                                        <option value="CC">Cédula Ciudadanía</option>
                                         <option value="CE">Cédula Extrangería</option> 
                                         <option value="PA">Pasaporte</option>
                                         <option value="OT">Otro Tipo Documento</option> 

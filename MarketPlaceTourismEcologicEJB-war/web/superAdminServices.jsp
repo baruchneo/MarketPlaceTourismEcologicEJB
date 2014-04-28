@@ -22,15 +22,10 @@
     </head>
   
     <body>
-        <div id="Admin" >  </div>
-        <div id="login" >  
-            <form method="post" action="" > 
-                <input type="text" id="user" name="user" value="" placeholder="Usuario" />   
-                <input type="text" id="pass" name="pass" value="" placeholder="Contraseña" /> 
-                <input type="submit" value="Entrar" id="submit" />  
-                <input type="submit" value="Registrar" id="submit" />  
-                <br> <a href="">Olvide mi<br> Contraseña</a>
-            </form > 
+        <div id="login2" >
+            <p style="margin-right: 56px;">Usuario</p>
+            <p>Super Usuario</p>
+            <a href="">Salir</a> 
         </div>
         <ol id="toc">
             <div id="gridSuperAdminHome" >
